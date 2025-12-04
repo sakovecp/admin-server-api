@@ -1,0 +1,32 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - APP_ENV=local
+      - DB_CONNECTION=sqlite
+    expose:
+      - "9000"
+
+  nginx:
+    image: nginx:1.25
+    container_name: nginx
+    ports:
+      - "8080:80"
+      - "8081:8081"
+      - "8082:8082"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:rw
+      - ./docker/nginx/sites-enabled:/etc/nginx/sites-enabled:rw
+      - ./docker/nginx/html:/usr/share/nginx/html:rw
+      - ./docker/nginx/logs:/var/log/nginx:rw
+    depends_on:
+      - app
+    restart: unless-stopped

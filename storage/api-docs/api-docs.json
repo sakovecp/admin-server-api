@@ -1,0 +1,196 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Server API Документація",
+        "description": "API для управління сервером та віртуальними хостами",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1",
+            "description": "API v1"
+        }
+    ],
+    "paths": {
+        "/server/start": {
+            "post": {
+                "tags": [
+                    "Server"
+                ],
+                "summary": "Запустити сервер",
+                "operationId": "445c8e2c724daa4e86a7aacd46f4b17b",
+                "responses": {
+                    "200": {
+                        "description": "Сервер запущено"
+                    }
+                }
+            }
+        },
+        "/server/stop": {
+            "post": {
+                "tags": [
+                    "Server"
+                ],
+                "summary": "Зупинити сервер",
+                "operationId": "347aad83319279b2b50a5aca0ea10941",
+                "responses": {
+                    "200": {
+                        "description": "Сервер зупинено"
+                    }
+                }
+            }
+        },
+        "/server/restart": {
+            "post": {
+                "tags": [
+                    "Server"
+                ],
+                "summary": "Пререзавантажити сервер",
+                "operationId": "8629c9ea9dffb345f562408b87c677b0",
+                "responses": {
+                    "200": {
+                        "description": "Сервер перезавантажено"
+                    }
+                }
+            }
+        },
+        "/server/reload": {
+            "post": {
+                "tags": [
+                    "Server"
+                ],
+                "summary": "Перезавантажити конфігурацію сервера",
+                "operationId": "b33fb709e0fed62018d6724a3065923c",
+                "responses": {
+                    "200": {
+                        "description": "Сервер перезавантажено"
+                    }
+                }
+            }
+        },
+        "/vhosts": {
+            "get": {
+                "tags": [
+                    "Vhosts"
+                ],
+                "summary": "Список усіх віртуальних хостів",
+                "operationId": "57a0d681bb0a8cafd2af73c59f99b123",
+                "responses": {
+                    "200": {
+                        "description": "Список віртуальних хостів",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "domain": {
+                                                        "type": "string",
+                                                        "example": "example.com"
+                                                    },
+                                                    "port": {
+                                                        "type": "integer",
+                                                        "example": 8081
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Vhosts"
+                ],
+                "summary": "Створити віртуальний хост",
+                "operationId": "4390ff7709d4e937ec2889252d7d1a79",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "domain"
+                                ],
+                                "properties": {
+                                    "domain": {
+                                        "type": "string",
+                                        "example": "example.com"
+                                    },
+                                    "port": {
+                                        "type": "integer",
+                                        "example": 8081,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Віртуальний хост створено"
+                    },
+                    "422": {
+                        "description": "Помилка валідації"
+                    }
+                }
+            }
+        },
+        "/vhosts/{domain}": {
+            "delete": {
+                "tags": [
+                    "Vhosts"
+                ],
+                "summary": "Видалити віртуальний хост",
+                "operationId": "2a511bccb15087a8253ce9740adf8407",
+                "parameters": [
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "description": "Назва домену",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Віртуальний хост видалено"
+                    },
+                    "404": {
+                        "description": "Віртуальний хост не знайдено"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Server",
+            "description": "Server"
+        },
+        {
+            "name": "Vhosts",
+            "description": "Vhosts"
+        }
+    ]
+}
