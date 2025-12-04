@@ -7,4 +7,5 @@ interface ServerManagerInterface {
     public function stop():array;
     public function restart():array;
     public function reload():array;
+    public function getServerType():string;
 }

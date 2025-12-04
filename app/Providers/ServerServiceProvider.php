@@ -3,6 +3,8 @@ namespace App\Providers;
 
 use App\Enumerations\ServerEnum;
 use App\Providers\Servers\NginxServiceProvider;
+use App\Services\Docker\DockerComposeInterface;
+use App\Services\Docker\DockerComposeManager;
 use App\Services\Host\HostManager;
 use App\Services\Host\HostManagerInterface;
 use Illuminate\Support\ServiceProvider;
@@ -13,6 +15,9 @@ class ServerServiceProvider extends ServiceProvider
     {
         $this->app->bind(HostManagerInterface::class, function ($app) {
             return new HostManager(config('server.portMinVal'), config('server.portMaxVal'));
+        });
+        $this->app->bind(DockerComposeInterface::class, function ($app) {
+            return new  DockerComposeManager();
         });
 
         if(config('server.type', 'nginx') === ServerEnum::SERVER_NGINX->value){

@@ -7,4 +7,5 @@ interface HostManagerInterface {
     public function delete(string $domain): bool;
     public function isFreePort(int $port): bool;
     public function existDomain(string $domain): bool;
+    public function find(string $domain):\Illuminate\Database\Eloquent\Model;
 }

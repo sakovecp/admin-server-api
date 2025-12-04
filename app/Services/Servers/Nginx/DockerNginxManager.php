@@ -16,6 +16,11 @@ class DockerNginxManager extends AbstractServerManager
         return config('server.docker.container');
     }
 
+    public function getServerType(): string
+    {
+        return ServerEnum::SERVER_NGINX->value;
+    }
+
     protected function runCommand(string $action): array
     {
         if (in_array($action, ['start', 'stop', 'restart'])) {

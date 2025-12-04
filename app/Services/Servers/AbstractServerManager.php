@@ -18,6 +18,11 @@ abstract class AbstractServerManager implements ServerManagerInterface
     abstract protected function getDefaultServer(): string;
 
     /**
+     * Повертає дефолтну команду для nginx
+     */
+    abstract public function getServerType(): string;
+
+    /**
      * Виконати команду
      */
     protected function run(array $cmd): array

@@ -8,7 +8,7 @@ use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\File;
 use Exception;
 
-class DockerComposeManager
+class DockerComposeManager implements DockerComposeInterface
 {
     protected string $composePath;
 

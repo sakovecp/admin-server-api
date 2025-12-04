@@ -20,6 +20,11 @@ class LocalNginxManager extends AbstractServerManager
         return config('server.local.binary', '/usr/sbin/nginx');
     }
 
+    public function getServerType(): string
+    {
+        return ServerEnum::SERVER_NGINX->value;
+    }
+
     /**
      * Автоматичне визначення платформи
      */

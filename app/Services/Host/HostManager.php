@@ -28,6 +28,11 @@ class HostManager implements HostManagerInterface
         return VirtualHost::create(['domain' => $domain, 'port' => $port, 'conf_file' => $confFile]);
     }
 
+    public function find(string $domain): \Illuminate\Database\Eloquent\Model
+    {
+        return VirtualHost::findOrFail(['domain' => $domain]);
+    }
+
     public function delete(string $domain): bool
     {
         $vh = VirtualHost::findOrFail(['domain' => $domain]);
