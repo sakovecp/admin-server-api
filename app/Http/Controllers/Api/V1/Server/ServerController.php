@@ -24,7 +24,7 @@ class ServerController extends ApiController
      */
     public function start(Request $request)
     {
-        return response()->json($this->server->start());
+        return $this->success($this->server->start());
     }
 
     /**
@@ -37,7 +37,7 @@ class ServerController extends ApiController
      */
     public function stop(Request $request)
     {
-        return response()->json($this->server->stop());
+        return $this->success($this->server->stop());
     }
 
     /**
@@ -50,7 +50,7 @@ class ServerController extends ApiController
      */
     public function restart(Request $request)
     {
-        return response()->json($this->server->restart());
+        return $this->success($this->server->restart());
     }
 
     /**
@@ -63,6 +63,6 @@ class ServerController extends ApiController
      */
     public function reload(Request $request)
     {
-        return response()->json($this->server->reload());
+        return $this->success($this->server->reload());
     }
 }
