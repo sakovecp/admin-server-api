@@ -30,12 +30,12 @@ class HostManager implements HostManagerInterface
 
     public function find(string $domain): \Illuminate\Database\Eloquent\Model
     {
-        return VirtualHost::findOrFail(['domain' => $domain]);
+        return VirtualHost::where('domain', $domain)->firstOrFail();
     }
 
     public function delete(string $domain): bool
     {
-        $vh = VirtualHost::findOrFail(['domain' => $domain]);
+        $vh = VirtualHost::where('domain', $domain)->firstOrFail();
         $vh->delete();
         return true;
     }

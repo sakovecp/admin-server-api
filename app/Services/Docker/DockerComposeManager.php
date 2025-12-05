@@ -75,7 +75,7 @@ class DockerComposeManager implements DockerComposeInterface
 
     public function rebuildService(string $service): void
     {
-        $this->runCommand(["docker", "compose", "up", "-d", $service]);
+        $this->runCommand(["docker", "compose", "up", $service, "-d"]);
     }
 
     public function runCommand(array $cmd): void

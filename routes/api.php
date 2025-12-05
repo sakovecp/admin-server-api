@@ -15,6 +15,7 @@ Route::prefix('v1')->middleware(['api'])->group(function () {
     Route::prefix('vhosts')->group(function () {
         Route::get('/', [VhostV1::class, 'all']);
         Route::post('/', [VhostV1::class, 'create']);
-        Route::delete('/{domain}', [VhostV1::class, 'delete']);
+        Route::delete('/{domain}', [VhostV1::class, 'delete'])
+            ->whereIn('domain', ['.*']);
     });
 });
