@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api\V1\Server;
 
-use App\Http\Controllers\Api\V1\ApiController;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\V1\Vhost\CreateVhostRequest;
 use App\Http\Resources\Api\V1\VhostResource;
 use App\Services\Vhost\VhostManagerInterface;

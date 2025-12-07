@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api\V1\Server;
 
-use App\Http\Controllers\Api\V1\ApiController;
+use App\Http\Controllers\Api\ApiController;
 use App\Services\Servers\ServerManagerInterface;
 use Illuminate\Http\Request;
 

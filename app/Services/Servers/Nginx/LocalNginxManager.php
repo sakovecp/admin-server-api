@@ -56,12 +56,24 @@ class LocalNginxManager extends AbstractServerManager
             case PlatformEnum::LINUX:
             default:
                 $systemctl = ['systemctl', $action, ServerEnum::SERVER_NGINX->value];
-                $service = ['service', ServerEnum::SERVER_NGINX->value, $action];
-
                 if (is_executable('/bin/systemctl') || is_executable('/usr/bin/systemctl')) {
                     return $this->run($systemctl);
                 }
 
+                $service = ['sudo', ServerEnum::SERVER_NGINX->value, "-s", $action];
+
+                if($action === 'start'){
+                    return $this->run(['sudo', ServerEnum::SERVER_NGINX->value]);
+                }
+                if($action === 'restart'){
+                    $this->run(['sudo', ServerEnum::SERVER_NGINX->value, "-s", "stop"]);
+                    // даємо nginx завершитися
+                    usleep(500000); // 0.5 сек
+                    return $this->run(['sudo', ServerEnum::SERVER_NGINX->value]);
+                }
+                if (in_array($action, ['stop', 'reload'])) {
+                    return $this->run($service);
+                }
                 return $this->run($service);
         }
     }
