@@ -43,38 +43,41 @@ class LocalNginxManager extends AbstractServerManager
 
     protected function runCommand(string $action): array
     {
-        switch ($this->platform) {
-            case PlatformEnum::WINDOWS:
-                return $this->run([$this->server, "-s", $action]);
+        return match ($this->platform) {
+            PlatformEnum::WINDOWS => $this->runWindows($action),
+            PlatformEnum::MAC     => $this->runMac($action),
+            PlatformEnum::LINUX   => $this->runLinux($action),
+        };
+    }
 
-            case PlatformEnum::MAC:
-                if (in_array($action, ['start', 'stop', 'restart'])) {
-                    return $this->run(['brew', 'services', $action, ServerEnum::SERVER_NGINX->value]);
-                }
-                return $this->run([$this->server, '-s', $action]);
+    protected function runWindows(string $action): array
+    {
+        return $this->run([$this->server, "-s", $action]);
+    }
 
-            case PlatformEnum::LINUX:
-            default:
-                $systemctl = ['systemctl', $action, ServerEnum::SERVER_NGINX->value];
-                if (is_executable('/bin/systemctl') || is_executable('/usr/bin/systemctl')) {
-                    return $this->run($systemctl);
-                }
+    protected function runMac(string $action): array
+    {
+        $nginx = ServerEnum::SERVER_NGINX->value;
 
-                $service = ['sudo', ServerEnum::SERVER_NGINX->value, "-s", $action];
-
-                if($action === 'start'){
-                    return $this->run(['sudo', ServerEnum::SERVER_NGINX->value]);
-                }
-                if($action === 'restart'){
-                    $this->run(['sudo', ServerEnum::SERVER_NGINX->value, "-s", "stop"]);
-                    // даємо nginx завершитися
-                    usleep(500000); // 0.5 сек
-                    return $this->run(['sudo', ServerEnum::SERVER_NGINX->value]);
-                }
-                if (in_array($action, ['stop', 'reload'])) {
-                    return $this->run($service);
-                }
-                return $this->run($service);
+        if (in_array($action, ['start', 'stop', 'restart'], true)) {
+            return $this->run(['brew', 'services', $action, $nginx]);
         }
+
+        return $this->run([$this->server, '-s', $action]);
+    }
+
+    protected function runLinux(string $action): array
+    {
+        if ($action === 'start') {
+            return $this->run([$this->server]);
+        }
+
+        if ($action === 'restart') {
+            $this->run([$this->server, "-s", "stop"]);
+            usleep(500_000);
+            return $this->run([$this->server]);
+        }
+
+        return $this->run([$this->server, "-s", $action]);
     }
 }
