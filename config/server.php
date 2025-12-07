@@ -9,7 +9,7 @@ return [
     // локальні налаштування сервера
     'local' => [
         'binary' => env('SERVER_BINARY', '/usr/sbin/nginx'),
-        'configDir' => env('SERVER_CONF_DIR', '/etc/nginx/sites-enabled'),
+        'configDir' => env('SERVER_CONF_DIR', '/etc/nginx/conf.d'),
         'htmlDir' => env('SERVER_HTML_DIR', '/var/www'),
     ],
 
