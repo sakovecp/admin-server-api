@@ -31,12 +31,13 @@ abstract class AbstractServerManager implements ServerManagerInterface
         $process->setTimeout(60);
         $process->run();
 
-        return [
-            'success' => $process->isSuccessful(),
-            'output' => $process->getOutput(),
-            'error' => $process->getErrorOutput(),
-            'cmd' => $cmd,
-        ];
+        if ($process->isSuccessful()) {
+            return [
+                'output' => $process->getOutput(),
+                'cmd' => $cmd,
+            ];
+        }
+        throw new \Exception("Error running command [{$process->getCommandLine()}]. {$process->getErrorOutput()}");
     }
 
     public function start(): array
