@@ -37,7 +37,18 @@
 * Composer
 
 ---
+## Клонування репозиторію
 
+```bash
+git clone git@github.com:sakovecp/admin-server-api.git
+```
+
+перехід в папку проекта
+```bash
+cd admin-server-api
+```
+
+---
 ## Налаштування (файли .env)
 
 Скопіюйте приклад .env і відредагуйте при потребі:
@@ -86,15 +97,26 @@ php artisan key:generate
 
 3. Підніміть середовище:
 
-скопіюйте з папки ```docker/v1``` або ```docker/v2``` файли docker-compose.yml, Dockerfile в корінь проекта та виконайте
+скопіюйте з папки ```docker/v1``` або ```docker/v2``` файли docker-compose.yml, Dockerfile в корінь проекта 
+
 ```bash
-docker-compose up -d
+cp ./docker/v1/* ./
+```
+
+та виконайте
+
+```bash
+docker-compose up -d --build
 ```
 
 > Зауваження: для варіанта docker/v1  `docker-compose.yml` у цій реалізації використовує `network_mode: host`. Це означає, що nginx в контейнері працюватиме в мережі хоста. На деяких ОС/конфігураціях може знадобитися запуск `docker-compose` з правами `sudo`.
 
 4. Міграції БД:
-
+   
+```bash
+#створіть базу даних
+touch database/database.sqlite
+````
 ```bash
 # запустіть у контейнері app або локально, залежно від налаштувань
 docker exec -it <app_container> php artisan migrate
