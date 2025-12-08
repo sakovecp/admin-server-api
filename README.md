@@ -49,12 +49,14 @@ cp .env.example .env
 Важливі змінні (в `.env` або `.env.example`):
 
 ```
+PROJECT_PATH=/Users/petro/Documents/projects/admin-server-api   #абсолютний шлях до проекта
+COMPOSE_PROJECT_NAME=admin-server-api  #назва проекта для docker compose
 SERVER_API_MODE=docker  # 'docker' або 'local'
 SERVER_TYPE=nginx  #тип сервер позамовчуванню nginx, на майбутнє можна додати підтримку інших серверов типу apatche і тд.     
-SERVER_CONF_DIR=/var/www/html/docker/nginx/conf.d    # шлях до конф файлів (за замовчуванням вказано для docker контейнера, якщо nginx на хості тоді вкажіть /etc/nginx/conf.d та налаштуйте права на запис)
-SERVER_HTML_DIR=/var/www/html/docker/nginx/html      # шлях до кореня html (за замовчуванням вказано для docker контейнера, якщо nginx на хості тоді вкажіть /var/www та налаштуйте права на запис)
-SERVER_DOCKER_CONTAINER=nginx    # ім'я контейнера (docker-mode)
-SERVER_BINARY=/usr/sbin/nginx    # бінарний файл сервера (docker-local)
+SERVER_CONF_DIR=/var/www/html/docker/conf/nginx/conf.d    # шлях до конф файлів (за замовчуванням вказано для docker контейнера, якщо nginx на хості тоді вкажіть /etc/nginx/conf.d та налаштуйте права на запис)
+SERVER_HTML_DIR=/var/www/html/docker/conf/nginx/html      # шлях до кореня html (за замовчуванням вказано для docker контейнера, якщо nginx на хості тоді вкажіть /var/www та налаштуйте права на запис)
+SERVER_DOCKER_CONTAINER=nginx # ім'я контейнера (docker-mode)
+SERVER_BINARY=/usr/sbin/nginx # бінарний файл сервера (docker-local)
 #Шаблони див. resouces/views/servers/nginx
 TEMPLATE_VHOST_CONF=servers.nginx.vhost_conf
 TEMPLATE_VHOST_INDEX=servers.nginx.vhost_index

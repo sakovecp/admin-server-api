@@ -6,14 +6,9 @@ use App\Services\Servers\AbstractServerManager;
 
 class DockerNginxManager extends AbstractServerManager
 {
-    public function __construct(string $container = '')
+    public function __construct(string $container)
     {
         parent::__construct($container);
-    }
-
-    protected function getDefaultServer(): string
-    {
-        return config('server.docker.container');
     }
 
     public function getServerType(): string

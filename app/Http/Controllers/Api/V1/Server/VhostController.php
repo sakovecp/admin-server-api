@@ -65,7 +65,7 @@ class VhostController extends ApiController
      */
     public function create(CreateVhostRequest $request)
     {
-        $result = $this->service->create($request->get('domain'), $request->get('port', null));
+        $result = $this->service->create($request->get('domain'), $request->get('port'));
         return $this->success($result);
     }
 
@@ -88,6 +88,6 @@ class VhostController extends ApiController
     public function delete(Request $request, string $domain)
     {
         $result = $this->service->delete($domain);
-        return $this->success($result);
+        return $this->success(['domain' => $domain , 'deleted' => $result]);
     }
 }

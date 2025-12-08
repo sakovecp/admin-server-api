@@ -9,15 +9,10 @@ class LocalNginxManager extends AbstractServerManager
 {
     protected PlatformEnum $platform;
 
-    public function __construct(string $server = '')
+    public function __construct(string $server)
     {
         parent::__construct($server);
         $this->platform = $this->detectPlatform();
-    }
-
-    protected function getDefaultServer(): string
-    {
-        return config('server.local.binary', '/usr/sbin/nginx');
     }
 
     public function getServerType(): string

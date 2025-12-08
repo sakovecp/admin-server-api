@@ -7,15 +7,10 @@ abstract class AbstractServerManager implements ServerManagerInterface
 {
     protected string $server;
 
-    public function __construct(string $server = '')
+    public function __construct(string $server)
     {
-        $this->server = $server ?: $this->getDefaultServer();
+        $this->server = $server;
     }
-
-    /**
-     * Повертає дефолтну команду для nginx
-     */
-    abstract protected function getDefaultServer(): string;
 
     /**
      * Повертає дефолтну команду для nginx
