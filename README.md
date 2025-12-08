@@ -158,7 +158,7 @@ curl -X POST http://localhost:8000/api/v1/server/reload
     "port": 8081      // опціонально — якщо не вказано, система виділить вільний порт у діапазоні
   }
   ```
-* `DELETE /api/v1/vhosts/{domain}` — видалити віртуальний хост (domain в URL повинен бути url-encoded при потребі)
+* `DELETE /api/v1/vhosts/{domain}` — видалити віртуальний хост
 
 **Приклади (curl):**
 
