@@ -69,7 +69,7 @@ class LocalNginxManager extends AbstractServerManager
 
         if ($action === 'restart') {
             $this->run([$this->server, "-s", "stop"]);
-            usleep(500_000);
+            sleep(1);
             return $this->run([$this->server]);
         }
 
